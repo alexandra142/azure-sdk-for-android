@@ -60,10 +60,16 @@ public abstract class CommunicationIdentifier {
                 return new MicrosoftTeamsAppIdentifier(suffix, CommunicationCloudEnvironment.DOD);
             case TEAMS_APP_GCCH_CLOUD_PREFIX:
                 return new MicrosoftTeamsAppIdentifier(suffix, CommunicationCloudEnvironment.GCCH);
-            case ACS_USER_PREFIX:
             case SPOOL_USER_PREFIX:
+                return new CommunicationUserIdentifier(rawId);
+            case ACS_USER_PREFIX:
             case ACS_USER_DOD_CLOUD_PREFIX:
             case ACS_USER_GCCH_CLOUD_PREFIX:
+                int identifierSegments = suffix.split("_").length;
+                if(identifierSegments == 3)
+                {
+                    return new TeamsExtensionUserIdentifier(prefix, suffix);
+                }
                 return new CommunicationUserIdentifier(rawId);
             default:
                 return new UnknownIdentifier(rawId);
