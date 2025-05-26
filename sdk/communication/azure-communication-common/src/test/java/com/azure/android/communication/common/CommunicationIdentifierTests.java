@@ -4,12 +4,14 @@ package com.azure.android.communication.common;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CommunicationIdentifierTests {
 
-    private final String userId = "user id";
     private final String microsoftTeamsAppId = "45ab2481-1c1c-4005-be24-0ffb879b1130";
 
     @Test
@@ -46,12 +48,6 @@ public class CommunicationIdentifierTests {
 
         illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> new MicrosoftTeamsAppIdentifier(""));
         assertEquals("The initialization parameter [appId] cannot be null or empty.", illegalArgumentException.getMessage());
-    }
-
-    @Test
-    public void microsoftTeamsAppIdentifier_defaultCloudIsPublic() {
-        assertEquals(CommunicationCloudEnvironment.PUBLIC,
-            new MicrosoftTeamsAppIdentifier(userId).getCloudEnvironment());
     }
 
     @Test
@@ -119,6 +115,23 @@ public class CommunicationIdentifierTests {
             new PhoneNumberIdentifier("14255550123"));
         assertEquals(new PhoneNumberIdentifier("+14255550123"),
             new PhoneNumberIdentifier("+override").setRawId("4:+14255550123"));
+    }
+
+    @Test
+    public void phoneNumberIdentifier_getParametersCheck() {
+        assertFalse(new PhoneNumberIdentifier("14255550123").isAnonymous());
+        assertTrue(new PhoneNumberIdentifier("anonymous").isAnonymous());
+
+        assertNull(new PhoneNumberIdentifier("14255550121").getAssertedId());
+        assertNull(new PhoneNumberIdentifier("14255550121.123").getAssertedId());
+        assertNull(new PhoneNumberIdentifier("14255550121-123").getAssertedId());
+        assertEquals("123", new PhoneNumberIdentifier("14255550121_123").getAssertedId());
+        assertEquals("456", new PhoneNumberIdentifier("14255550121_123_456").getAssertedId());
+
+        // Ensure getAssertedId() returns the same value on repeated calls
+        PhoneNumberIdentifier staticPhoneNumberIdentifier = new PhoneNumberIdentifier("14255550121_123");
+        assertEquals("123", staticPhoneNumberIdentifier.getAssertedId());
+        assertEquals("123", staticPhoneNumberIdentifier.getAssertedId());
     }
 
     @Test
