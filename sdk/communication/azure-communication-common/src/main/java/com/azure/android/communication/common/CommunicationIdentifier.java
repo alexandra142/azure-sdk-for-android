@@ -28,7 +28,7 @@ public abstract class CommunicationIdentifier {
      * @throws IllegalArgumentException raw id is null or empty.
      */
     public static CommunicationIdentifier fromRawId(String rawId) {
-        if (rawId == null || rawId.trim().length() == 0) {
+        if (rawId == null || rawId.trim().isEmpty()) {
             throw new IllegalArgumentException("The parameter [rawId] cannot be null to empty.");
         }
 
@@ -65,12 +65,7 @@ public abstract class CommunicationIdentifier {
             case ACS_USER_PREFIX:
             case ACS_USER_DOD_CLOUD_PREFIX:
             case ACS_USER_GCCH_CLOUD_PREFIX:
-                int identifierSegments = suffix.split("_").length;
-                if(identifierSegments == 3)
-                {
-                    return new TeamsExtensionUserIdentifier(prefix, suffix);
-                }
-                return new CommunicationUserIdentifier(rawId);
+                return tryCreateTeamsExtensionUserOrCommunicationUser(prefix, suffix, rawId);
             default:
                 return new UnknownIdentifier(rawId);
         }
@@ -115,5 +110,20 @@ public abstract class CommunicationIdentifier {
     @Override
     public int hashCode() {
         return getRawId().hashCode();
+    }
+
+    private static CommunicationIdentifier tryCreateTeamsExtensionUserOrCommunicationUser(String prefix, String suffix,
+                                                                                          String rawId) {
+        String[] segments = suffix.split("_");
+        if (segments.length != 3) {
+            return new CommunicationUserIdentifier(rawId);
+        }
+
+        String resourceId = segments[0];
+        String tenantId = segments[1];
+        String userId = segments[2];
+        CommunicationCloudEnvironment cloud = TeamsExtensionUserIdentifier.determineCloudEnvironment(prefix);
+
+        return new TeamsExtensionUserIdentifier(userId, tenantId, resourceId, cloud);
     }
 }
