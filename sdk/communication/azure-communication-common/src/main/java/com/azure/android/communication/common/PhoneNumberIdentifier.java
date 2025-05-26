@@ -6,7 +6,6 @@ package com.azure.android.communication.common;
  * Communication identifier for Communication Services Phone Numbers
  */
 public final class PhoneNumberIdentifier extends CommunicationIdentifier {
-    private static final String anonymous = "anonymous";
     private final String phoneNumber;
     private String assertedId;
 
@@ -19,7 +18,7 @@ public final class PhoneNumberIdentifier extends CommunicationIdentifier {
      * @throws IllegalArgumentException thrown if phoneNumber parameter fail the validation.
      */
     public PhoneNumberIdentifier(String phoneNumber) {
-        if (phoneNumber == null || phoneNumber.trim().length() == 0) {
+        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
             throw new IllegalArgumentException("The initialization parameter [phoneNumber] cannot be null to empty.");
         }
         this.phoneNumber = phoneNumber;
@@ -38,6 +37,7 @@ public final class PhoneNumberIdentifier extends CommunicationIdentifier {
      * @return true if the phone number is anonymous.
      */
     public boolean isAnonymous() {
+        String anonymous = "anonymous";
         return getRawId().equals(PHONE_NUMBER_PREFIX + anonymous);
     }
 
