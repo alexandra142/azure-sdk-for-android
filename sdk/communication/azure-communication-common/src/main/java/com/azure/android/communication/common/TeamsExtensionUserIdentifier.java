@@ -56,7 +56,6 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
      * @throws IllegalArgumentException thrown if TeamsExtensionUserIdentifier cannot be initialized.
      */
     public TeamsExtensionUserIdentifier(String prefix, String identifier) {
-//todo test if the value is nonsense.
         this.cloudEnvironment = getCloudEnvironment(prefix);
 
         String[] segments = identifier.split("_");
@@ -105,8 +104,6 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
     public CommunicationCloudEnvironment getCloudEnvironment() {
         return cloudEnvironment;
     }
-
-//todo what about orders of methods?
 
     @Override
     public boolean equals(Object that) {
