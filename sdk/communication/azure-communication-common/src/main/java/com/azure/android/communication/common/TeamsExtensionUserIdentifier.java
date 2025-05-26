@@ -17,6 +17,8 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
 
     private final CommunicationCloudEnvironment cloudEnvironment;
 
+    private boolean rawIdSet = false;
+
     /**
      * Creates a new instance of TeamsExtensionUserIdentifier.
      *
@@ -59,26 +61,18 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
         return value;
     }
 
-    //todo delete?
     /**
-     * Creates  a new instance of TeamsExtensionUserIdentifier
+     * Set full ID of the identifier
+     * RawId is the encoded format for identifiers to store in databases or as stable keys in general.
      *
-     * @param prefix Prefix of identifier.
-     * @param identifier The full Id of the TeamsExtensionUserIdentifier without prefix.
-     * @throws IllegalArgumentException thrown if TeamsExtensionUserIdentifier cannot be initialized.
+     * @param rawId full ID of the identifier.
+     * @return TeamsExtensionUserIdentifier object itself.
      */
-    public TeamsExtensionUserIdentifier(String prefix, String identifier) {
-        this.cloudEnvironment = determineCloudEnvironment(prefix);
-
-        String[] segments = identifier.split("_");
-        if (segments.length != 3) {
-            throw  new IllegalArgumentException("Cannot initialize TeamsExtensionUserIdentifier.");
-        }
-
-        this.resourceId = segments[0];
-        this.tenantId = segments[1];
-        this.userId = segments[2];
-        this.setRawId(prefix + identifier);
+    @Override
+    public TeamsExtensionUserIdentifier setRawId(String rawId) {
+        super.setRawId(rawId);
+        rawIdSet = true;
+        return this;
     }
 
     /**
@@ -152,12 +146,15 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
 
     private void generateRawId() {
         String identifierBase = this.resourceId + "_" + this.tenantId + "_" + this.userId;
-        if (cloudEnvironment.equals(CommunicationCloudEnvironment.DOD)) {
-            super.setRawId(ACS_USER_DOD_CLOUD_PREFIX +  identifierBase);
-        } else if (cloudEnvironment.equals(CommunicationCloudEnvironment.GCCH)) {
-            super.setRawId(ACS_USER_GCCH_CLOUD_PREFIX + identifierBase);
-        } else {
-            super.setRawId(ACS_USER_PREFIX + identifierBase);
+        if (!rawIdSet) {
+            if (cloudEnvironment.equals(CommunicationCloudEnvironment.DOD)) {
+                super.setRawId(ACS_USER_DOD_CLOUD_PREFIX + identifierBase);
+            } else if (cloudEnvironment.equals(CommunicationCloudEnvironment.GCCH)) {
+                super.setRawId(ACS_USER_GCCH_CLOUD_PREFIX + identifierBase);
+            } else {
+                super.setRawId(ACS_USER_PREFIX + identifierBase);
+            }
+            rawIdSet = true;
         }
     }
 }
