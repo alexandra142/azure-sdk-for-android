@@ -11,16 +11,36 @@ public class CommunicationIdentifierTests {
 
     private final String userId = "user id";
     private final String microsoftTeamsAppId = "45ab2481-1c1c-4005-be24-0ffb879b1130";
-    private final String fullId = "some lengthy id string";
 
     @Test
-    public void defaultCloudIsPublicForMicrosoftTeamsUserIdentifier() {
-        assertEquals(CommunicationCloudEnvironment.PUBLIC,
-            new MicrosoftTeamsUserIdentifier(userId, true).setRawId(fullId).getCloudEnvironment());
+    public void exceptionThrownForNullOrEmptyParameters() {
+        assertThrows(IllegalArgumentException.class, () -> new CommunicationUserIdentifier(""));
+        assertThrows(IllegalArgumentException.class, () -> new MicrosoftTeamsUserIdentifier(""));
+        assertThrows(IllegalArgumentException.class, () -> new PhoneNumberIdentifier(""));
+        assertThrows(IllegalArgumentException.class, () -> new MicrosoftTeamsAppIdentifier(""));
+        assertThrows(IllegalArgumentException.class, () -> new TeamsExtensionUserIdentifier("", "", ""));
+
+        assertThrows(IllegalArgumentException.class, () -> new CommunicationUserIdentifier(null));
+        assertThrows(IllegalArgumentException.class, () -> new MicrosoftTeamsUserIdentifier(null));
+        assertThrows(IllegalArgumentException.class, () -> new PhoneNumberIdentifier(null));
+        assertThrows(IllegalArgumentException.class, () -> new MicrosoftTeamsAppIdentifier(null));
+        assertThrows(IllegalArgumentException.class, () -> new TeamsExtensionUserIdentifier(null, "b", "c"));
+        assertThrows(IllegalArgumentException.class, () -> new TeamsExtensionUserIdentifier("a", null, "c"));
+        assertThrows(IllegalArgumentException.class, () -> new TeamsExtensionUserIdentifier("a", "b", null));
     }
 
     @Test
-    public void microsoftTeamsAppIdentifier_throwsMicrosofTeamsAppIdNullOrEmpty() {
+    public void defaultCloudIsPublicForAllIdentifiers() {
+        assertEquals(CommunicationCloudEnvironment.PUBLIC,
+            new MicrosoftTeamsUserIdentifier("45ab2481-1c1c-4005-be24-0ffb879b1130", true).getCloudEnvironment());
+        assertEquals(CommunicationCloudEnvironment.PUBLIC,
+            new MicrosoftTeamsAppIdentifier("45ab2481-1c1c-4005-be24-0ffb879b1130").getCloudEnvironment());
+        assertEquals(CommunicationCloudEnvironment.PUBLIC,
+            new TeamsExtensionUserIdentifier("207ffef6-9444-41fb-92ab-20eacaae2768", "45ab2481-1c1c-4005-be24-0ffb879b1130", "bbbcbc1e-9f06-482a-b5d8-20e3f26ef0cd").getCloudEnvironment());
+    }
+
+    @Test
+    public void microsoftTeamsAppIdentifier_throwsMicrosoftTeamsAppIdNullOrEmpty() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> new MicrosoftTeamsAppIdentifier(null));
         assertEquals("The initialization parameter [appId] cannot be null or empty.", illegalArgumentException.getMessage());
 
