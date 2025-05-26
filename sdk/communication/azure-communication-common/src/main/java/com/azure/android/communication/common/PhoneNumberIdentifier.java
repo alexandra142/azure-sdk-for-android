@@ -6,7 +6,10 @@ package com.azure.android.communication.common;
  * Communication identifier for Communication Services Phone Numbers
  */
 public final class PhoneNumberIdentifier extends CommunicationIdentifier {
+    private static final String Anonymous = "anonymous";
     private final String phoneNumber;
+    private String assertedId;
+
 
     /**
      * Creates a PhoneNumberIdentifier object
@@ -28,6 +31,33 @@ public final class PhoneNumberIdentifier extends CommunicationIdentifier {
      */
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    /**
+     * Checks if the phone number is anonymous, e.g., used to represent a hidden caller ID.
+     */
+    public boolean isAnonymous() {
+        return getRawId().equals(PHONE_NUMBER_PREFIX + Anonymous);
+    }
+
+    /**
+     * Gets the asserted ID for the phone number, distinguishing it from other connections made through the same number.
+     *
+     * @return the string identifier representing the asserted ID for the phone number.
+     */
+    public String getAssertedId() {
+        if (assertedId != null && !assertedId.trim().isEmpty()) {
+            return assertedId;
+        }
+
+        String[] segments = getRawId().substring(PHONE_NUMBER_PREFIX.length()).split("_");
+        if (segments.length > 1) {
+            assertedId = segments[segments.length - 1];
+            return assertedId;
+        }
+
+        assertedId = "";
+        return null;
     }
 
     /**
