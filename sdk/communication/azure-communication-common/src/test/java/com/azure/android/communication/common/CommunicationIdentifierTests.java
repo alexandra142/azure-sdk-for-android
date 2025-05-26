@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CommunicationIdentifierTests {
 
     private final String userId = "user id";
-    private String microsoftTeamsAppId = "45ab2481-1c1c-4005-be24-0ffb879b1130";
+    private final String microsoftTeamsAppId = "45ab2481-1c1c-4005-be24-0ffb879b1130";
     private final String fullId = "some lengthy id string";
 
     @Test
