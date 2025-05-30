@@ -49,6 +49,17 @@ public final class CommunicationTokenCredential {
         this.userCredential = new AutoRefreshUserCredential(tokenRefreshOptions);
     }
 
+    /**
+     * Create an instance of {@link CommunicationTokenCredential} with entraTokenOptions,
+     * which will use EntraTokenCredential
+     * that exchanges an Entra token for an Azure Communication Services (ACS) token.
+     *
+     * @param entraTokenOptions options to create EntraTokenCredential
+     */
+    public CommunicationTokenCredential(EntraCommunicationTokenCredentialOptions entraTokenOptions) {
+        this.userCredential = null;
+        // todo will be done.
+    }
 
     /**
      * Get Azure core access token from credential
