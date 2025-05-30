@@ -144,6 +144,7 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
         return super.hashCode();
     }
 
+    //todo what about parallel threads??
     private void generateRawId() {
         String identifierBase = this.resourceId + "_" + this.tenantId + "_" + this.userId;
         if (!rawIdSet) {
