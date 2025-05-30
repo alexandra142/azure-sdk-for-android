@@ -12,7 +12,7 @@ import com.azure.android.core.credential.TokenCredential;
  * </p>
  */
 public final class EntraCommunicationTokenCredentialOptions {
-    private final String[] defaultScopes = { EntraCommunicationTokenScopes.DEFAULTSCOPES };
+    private final String[] defaultScopes = { EntraCommunicationTokenScopes.DEFAULT_SCOPES };
 
     private final String[] scopes;
     private final String resourceEndpoint;
@@ -67,10 +67,10 @@ public final class EntraCommunicationTokenCredentialOptions {
     }
 
     private static String getValidPrefix(String scope) {
-        if (scope.startsWith(EntraCommunicationTokenScopes.TEAMSEXTENSIONSCOPEPREFIX)) {
-            return EntraCommunicationTokenScopes.TEAMSEXTENSIONSCOPEPREFIX;
-        } else if (scope.startsWith(EntraCommunicationTokenScopes.COMMUNICATIONCLIENTSSCOPEPREFIX)) {
-            return EntraCommunicationTokenScopes.COMMUNICATIONCLIENTSSCOPEPREFIX;
+        if (scope.startsWith(EntraCommunicationTokenScopes.TEAMS_EXTENSION_SCOPE_PREFIX)) {
+            return EntraCommunicationTokenScopes.TEAMS_EXTENSION_SCOPE_PREFIX;
+        } else if (scope.startsWith(EntraCommunicationTokenScopes.COMMUNICATION_CLIENTS_SCOPE_PREFIX)) {
+            return EntraCommunicationTokenScopes.COMMUNICATION_CLIENTS_SCOPE_PREFIX;
         }
         return null;
     }
