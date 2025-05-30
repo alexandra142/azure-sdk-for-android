@@ -17,8 +17,6 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
 
     private final CommunicationCloudEnvironment cloudEnvironment;
 
-    private boolean rawIdSet = false;
-
     /**
      * Creates a new instance of TeamsExtensionUserIdentifier.
      *
@@ -71,7 +69,6 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
     @Override
     public TeamsExtensionUserIdentifier setRawId(String rawId) {
         super.setRawId(rawId);
-        rawIdSet = true;
         return this;
     }
 
@@ -147,15 +144,12 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
     //todo what about parallel threads??
     private void generateRawId() {
         String identifierBase = this.resourceId + "_" + this.tenantId + "_" + this.userId;
-        if (!rawIdSet) {
-            if (cloudEnvironment.equals(CommunicationCloudEnvironment.DOD)) {
-                super.setRawId(ACS_USER_DOD_CLOUD_PREFIX + identifierBase);
-            } else if (cloudEnvironment.equals(CommunicationCloudEnvironment.GCCH)) {
-                super.setRawId(ACS_USER_GCCH_CLOUD_PREFIX + identifierBase);
-            } else {
-                super.setRawId(ACS_USER_PREFIX + identifierBase);
-            }
-            rawIdSet = true;
+        if (cloudEnvironment.equals(CommunicationCloudEnvironment.DOD)) {
+            super.setRawId(ACS_USER_DOD_CLOUD_PREFIX + identifierBase);
+        } else if (cloudEnvironment.equals(CommunicationCloudEnvironment.GCCH)) {
+            super.setRawId(ACS_USER_GCCH_CLOUD_PREFIX + identifierBase);
+        } else {
+            super.setRawId(ACS_USER_PREFIX + identifierBase);
         }
     }
 }
