@@ -50,24 +50,13 @@ public final class CommunicationTokenCredential {
     }
 
     /**
-     * Creates a {@link CommunicationTokenCredential} that automatically refreshes the token
-     * with a provided {@link java.util.concurrent.Callable} on a background thread.
-     * <p>
-     * The cached token is updated if {@link #getToken()} is called and if the difference between the current time
-     * and token expiry time is less than 120s.
-     * <p>
-     * If {@code refreshProactively} is {@code true}:
-     * <ul>
-     *     <li>The cached token will be updated in the background when the difference between the current time and
-     *     token expiry time is less than 600s.</li>
-     *     <li>The cached token will be updated immediately when the constructor is invoked
-     *     and <code>initialToken</code> is expired</li>
-     * </ul>
+     * Create an instance of {@link CommunicationTokenCredential} with entraTokenOptions,
+     * which will use EntraTokenCredential
+     * that exchanges an Entra token for an Azure Communication Services (ACS) token.
      *
-     * @param entraTokenCredentialOptions Options object that contains token refresher, initial token string,
-     *                            and refreshProactively
+     * @param entraTokenOptions options to create EntraTokenCredential
      */
-    public CommunicationTokenCredential(EntraCommunicationTokenCredentialOptions entraTokenCredentialOptions) {
+    public CommunicationTokenCredential(EntraCommunicationTokenCredentialOptions entraTokenOptions) {
         this.userCredential = null;
         // todo will be done.
     }
