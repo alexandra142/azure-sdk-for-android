@@ -68,7 +68,8 @@ public final class CommunicationTokenCredential {
      *                            and refreshProactively
      */
     public CommunicationTokenCredential(EntraCommunicationTokenCredentialOptions entraTokenCredentialOptions) {
-// todo will be done.
+        this.userCredential = null;
+        // todo will be done.
     }
 
     /**
