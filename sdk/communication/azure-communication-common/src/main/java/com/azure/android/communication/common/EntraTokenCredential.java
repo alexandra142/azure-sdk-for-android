@@ -3,6 +3,7 @@
 
 package com.azure.android.communication.common;
 
+import com.azure.android.communication.common.implementation.EntraTokenGuardPolicy;
 import com.azure.android.core.http.HttpClient;
 import com.azure.android.core.http.HttpPipeline;
 import com.azure.android.core.http.HttpPipelineBuilder;
