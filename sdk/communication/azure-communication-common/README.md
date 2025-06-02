@@ -36,13 +36,13 @@ Add an `implementation` configuration to the `dependencies` block of your app's 
 // build.gradle
 dependencies {
     ...
-    implementation "com.azure.android:azure-communication-common:1.2.1"
+    implementation "com.azure.android:azure-communication-common:1.3.1"
 }
 
 // build.gradle.kts
 dependencies {
     ...
-    implementation("com.azure.android:azure-communication-common:1.2.1")
+    implementation("com.azure.android:azure-communication-common:1.3.1")
 }
 ```
 
@@ -53,7 +53,7 @@ To import the library into your project using the [Maven](https://maven.apache.o
 <dependency>
   <groupId>com.azure.android</groupId>
   <artifactId>azure-communication-common</artifactId>
-  <version>1.2.1</version>
+  <version>1.3.1</version>
 </dependency>
 ```
 
