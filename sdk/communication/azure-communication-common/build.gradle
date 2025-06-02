@@ -14,6 +14,7 @@ dependencies {
     api "com.azure.android:azure-core:$azureCoreVersion"
     api "com.azure.android:azure-core-logging:$azureCoreVersion"
     api "com.azure.android:azure-core-credential:$azureCoreVersion"
+    api "com.azure.android:azure-core-http:$azureCoreVersion"
     api "net.sourceforge.streamsupport:android-retrofuture:$retroFutureVersion"
     // <!-- end: api Dependencies -->
 

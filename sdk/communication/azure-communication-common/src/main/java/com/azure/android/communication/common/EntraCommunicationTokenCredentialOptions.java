@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 package com.azure.android.communication.common;
-
 import com.azure.android.core.credential.TokenCredential;
 
 
@@ -12,15 +11,25 @@ import com.azure.android.core.credential.TokenCredential;
  * </p>
  */
 public final class EntraCommunicationTokenCredentialOptions {
-    private final String[] defaultScopes = { EntraCommunicationTokenScopes.DEFAULT_SCOPES };
-
-    private final String[] scopes;
-    private final String resourceEndpoint;
+    private static final String[] DEFAULT_SCOPES = { EntraCommunicationTokenScopes.DEFAULT_SCOPES };
 
     private final TokenCredential tokenCredential;
-
+    private final String resourceEndpoint;
+    private final String[] scopes;
     /**
      * Creates an instance of {@link EntraCommunicationTokenCredentialOptions}.
+     *
+     * @param resourceEndpoint The URI of the Azure Communication Services resource.
+     * @param tokenCredential The credential capable of fetching an Entra user token.
+     * @throws IllegalArgumentException thrown if resourceEndpoint,tokenCredential
+     * or scopes parameters fail the validation.
+     */
+    public EntraCommunicationTokenCredentialOptions(String resourceEndpoint, TokenCredential tokenCredential) {
+        this(resourceEndpoint, tokenCredential, DEFAULT_SCOPES);
+    }
+
+    /**
+     * Creates an instance of {@link EntraCommunicationTokenCredentialOptions} with default scopes.
      *
      * @param resourceEndpoint The URI of the Azure Communication Services resource.
      * @param tokenCredential The credential capable of fetching an Entra user token.
