@@ -70,7 +70,8 @@ final class EntraTokenCredential  extends UserCredential {
                                                    HttpClient httpClient) {
         BearerTokenAuthenticationPolicy authPolicy
                 = new BearerTokenAuthenticationPolicy(entraTokenOptions.getTokenCredential(), scopes);
-        HttpPipelinePolicy guardPolicy = new EntraTokenGuardPolicy();
+       //todo implement
+        HttpPipelinePolicy guardPolicy = null;
         //todo implement
         RetryPolicy retryPolicy = null;
         HttpClient clientToUse = (httpClient != null) ? httpClient : HttpClient.createDefault();
