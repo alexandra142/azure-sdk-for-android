@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.android.communication.common;
+package com.azure.android.communication.common.implementation;
 
+import com.azure.android.communication.common.CommunicationAccessToken;
 import com.azure.android.core.http.HttpPipelinePolicy;
 import com.azure.android.core.http.HttpPipelinePolicyChain;
 import com.azure.android.core.http.HttpRequest;
@@ -49,8 +50,9 @@ public final class EntraTokenGuardPolicy implements HttpPipelinePolicy {
             String body = responseCache.getBodyAsString(Charset.forName("UTF-8"));
             JsonNode root = new ObjectMapper().readTree(body);
             JsonNode accessTokenNode = root.get("accessToken");
-            CommunicationAccessToken accessToken = new TokenParser()
-                .createAccessToken(accessTokenNode.get("token").asText());
+            // todo add implementation.
+            CommunicationAccessToken accessToken = null;
+                //new TokenParser().createAccessToken(accessTokenNode.get("token").asText());
             return accessToken.getExpiresAt().isBefore(org.threeten.bp.OffsetDateTime.now());
         } catch (RuntimeException | IOException e) {
             return false;
