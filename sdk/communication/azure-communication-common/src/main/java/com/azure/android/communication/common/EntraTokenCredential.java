@@ -17,15 +17,15 @@ import java9.util.concurrent.CompletableFuture;
  * <p>
  * This class is used to cache/refresh the access token required by Azure Communication Services.
  */
-public final class EntraTokenCredential  extends UserCredential {
+final class EntraTokenCredential  extends UserCredential {
     public static final String TEAMS_EXTENSION_SCOPE_PREFIX = "https://auth.msft.communication.azure.com/";
     public static final String COMMUNICATION_CLIENTS_SCOPE_PREFIX = "https://communication.azure.com/clients/";
 
     public static final String TEAMS_EXTENSION_ENDPOINT = "/access/teamsPhone/:exchangeAccessToken";
-    public static final String TEAMS_EXTENSION_API_VERSION = "2025-03-02-preview";
+    public static final String TEAMS_EXTENSION_API_VERSION = "2025-06-30";
 
     public static final String COMMUNICATION_CLIENTS_ENDPOINT = "/access/entra/:exchangeAccessToken";
-    public static final String COMMUNICATION_CLIENTS = "2024-04-01-preview";
+    public static final String COMMUNICATION_CLIENTS_API_VERSION = "2025-03-02-preview";
 
     private final String resourceEndpoint;
     private final String[] scopes;
@@ -63,7 +63,7 @@ public final class EntraTokenCredential  extends UserCredential {
         this.scopes = entraTokenOptions.getScopes();
         this.pipeline = createPipelineFromOptions(entraTokenOptions, httpClient);
 
-        this.exchangeEntraToken().subscribe();
+        //this.exchangeEntraToken().subscribe();
     }
 
     private HttpPipeline createPipelineFromOptions(EntraCommunicationTokenCredentialOptions entraTokenOptions,
@@ -71,7 +71,8 @@ public final class EntraTokenCredential  extends UserCredential {
         BearerTokenAuthenticationPolicy authPolicy
                 = new BearerTokenAuthenticationPolicy(entraTokenOptions.getTokenCredential(), scopes);
         HttpPipelinePolicy guardPolicy = new EntraTokenGuardPolicy();
-        RetryPolicy retryPolicy = new RetryPolicy();
+        //todo implement
+        RetryPolicy retryPolicy = null;
         HttpClient clientToUse = (httpClient != null) ? httpClient : HttpClient.createDefault();
 
         return new HttpPipelineBuilder().httpClient(clientToUse).policies(authPolicy, guardPolicy, retryPolicy).build();
