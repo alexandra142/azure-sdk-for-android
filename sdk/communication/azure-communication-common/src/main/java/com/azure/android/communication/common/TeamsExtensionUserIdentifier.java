@@ -78,7 +78,7 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
      * @return CommunicationCloudEnvironment.
      * @throws IllegalArgumentException thrown if CommunicationCloudEnvironment cannot be initialized.
      */
-    public static CommunicationCloudEnvironment determineCloudEnvironment(String cloudPrefix) {
+    static CommunicationCloudEnvironment determineCloudEnvironment(String cloudPrefix) {
         switch (cloudPrefix) {
             case ACS_USER_DOD_CLOUD_PREFIX:
                 return CommunicationCloudEnvironment.DOD;

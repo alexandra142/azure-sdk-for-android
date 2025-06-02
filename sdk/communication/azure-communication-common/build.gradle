@@ -20,6 +20,7 @@ dependencies {
 
     // <!-- begin: implementation Dependencies -->
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion"
+    implementation "com.azure:azure-identity:$azureIdentity"
     implementation "com.jakewharton.threetenabp:threetenabp:$threeTenAbpVersion"
     // <!-- end: implementation Dependencies -->
 
