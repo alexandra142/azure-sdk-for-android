@@ -20,7 +20,7 @@ This package contains common code for Azure Communication Service libraries.
   APIs that would require the Java 8+ API desugaring provided by Android Gradle plugin 4.0.0.
 
 ### Versions available
-The current version of this library is **1.2.1**.
+The current version of this library is **1.3.1**.
 
 ### Install the library
 To install the Azure client libraries for Android, add them as dependencies within your
