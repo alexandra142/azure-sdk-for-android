@@ -49,6 +49,27 @@ public final class CommunicationTokenCredential {
         this.userCredential = new AutoRefreshUserCredential(tokenRefreshOptions);
     }
 
+    /**
+     * Creates a {@link CommunicationTokenCredential} that automatically refreshes the token
+     * with a provided {@link java.util.concurrent.Callable} on a background thread.
+     * <p>
+     * The cached token is updated if {@link #getToken()} is called and if the difference between the current time
+     * and token expiry time is less than 120s.
+     * <p>
+     * If {@code refreshProactively} is {@code true}:
+     * <ul>
+     *     <li>The cached token will be updated in the background when the difference between the current time and
+     *     token expiry time is less than 600s.</li>
+     *     <li>The cached token will be updated immediately when the constructor is invoked
+     *     and <code>initialToken</code> is expired</li>
+     * </ul>
+     *
+     * @param entraTokenCredentialOptions Options object that contains token refresher, initial token string,
+     *                            and refreshProactively
+     */
+    public CommunicationTokenCredential(EntraCommunicationTokenCredentialOptions entraTokenCredentialOptions) {
+// todo will be done.
+    }
 
     /**
      * Get Azure core access token from credential
