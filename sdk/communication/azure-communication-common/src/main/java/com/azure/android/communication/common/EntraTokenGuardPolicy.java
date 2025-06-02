@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 /**
  * Pipeline policy that caches and validates Entra and ACS tokens in HTTP responses.
  */
-public final class EntraTokenGuardPolicy implements HttpPipelinePolicy {
+final class EntraTokenGuardPolicy implements HttpPipelinePolicy {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private String entraTokenCache;
     private HttpResponse responseCache;
