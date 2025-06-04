@@ -15,7 +15,7 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
 
     private final String resourceId;
 
-    private CommunicationCloudEnvironment cloudEnvironment;
+    private CommunicationCloudEnvironment cloudEnvironment = CommunicationCloudEnvironment.PUBLIC;
 
     /**
      * Creates a TeamsExtensionUserIdentifier object with PUBLIC cloud environment.
@@ -26,22 +26,15 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
      * @throws IllegalArgumentException if any parameter fail the validation.
      */
     public TeamsExtensionUserIdentifier(String userId, String tenantId, String resourceId) {
-        this.userId = validateNotNullOrEmpty(userId, "userId");
-        this.tenantId = validateNotNullOrEmpty(tenantId, "tenantId");
-        this.resourceId = validateNotNullOrEmpty(resourceId, "resourceId");
+        this.userId = StringUtils.validateNotNullOrEmpty(userId, "userId");
+        this.tenantId = StringUtils.validateNotNullOrEmpty(tenantId, "tenantId");
+        this.resourceId = StringUtils.validateNotNullOrEmpty(resourceId, "resourceId");
         this.cloudEnvironment = CommunicationCloudEnvironment.PUBLIC;
 
         generateRawId();
     }
 
-    //todo can it be moved somewhere else and reused ?
-    private static String validateNotNullOrEmpty(String value, String paramName) {
-        if (value == null || value.trim().isEmpty()) {
-            String message = "The initialization parameter [" + paramName + "] cannot be null or empty.";
-            throw new IllegalArgumentException(message);
-        }
-        return value;
-    }
+
 
     /**
      * Set full ID of the identifier

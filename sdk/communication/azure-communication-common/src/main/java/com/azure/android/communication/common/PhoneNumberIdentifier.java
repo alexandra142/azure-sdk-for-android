@@ -19,10 +19,7 @@ public final class PhoneNumberIdentifier extends CommunicationIdentifier {
      * @throws IllegalArgumentException thrown if phoneNumber parameter fail the validation.
      */
     public PhoneNumberIdentifier(String phoneNumber) {
-        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
-            throw new IllegalArgumentException("The initialization parameter [phoneNumber] cannot be null to empty.");
-        }
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = StringUtils.validateNotNullOrEmpty(phoneNumber, "phoneNumber");
         this.setRawId(PHONE_NUMBER_PREFIX + phoneNumber);
     }
 
