@@ -124,6 +124,6 @@ public abstract class CommunicationIdentifier {
         String userId = segments[2];
         CommunicationCloudEnvironment cloud = TeamsExtensionUserIdentifier.determineCloudEnvironment(prefix);
 
-        return new TeamsExtensionUserIdentifier(userId, tenantId, resourceId, cloud);
+        return new TeamsExtensionUserIdentifier(userId, tenantId, resourceId).setCloudEnvironment(cloud);
     }
 }
