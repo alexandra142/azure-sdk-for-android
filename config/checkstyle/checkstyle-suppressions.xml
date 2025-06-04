@@ -190,6 +190,4 @@
       files="com.azure.android.communication.chat.implementation.notifications.fcm.RegistrationKeyManager.java"/>
   <suppress checks="com.azure.tools.checkstyle.checks.ThrowFromClientLogger"
       files="com.azure.android.communication.chat.implementation.notifications.fcm.KeyMetaDataStore.java"/>
-  <suppress  checks="com.azure.tools.checkstyle.checks.HttpPipelinePolicyCheck"
-      files="com.azure.android.communication.common.implementation.EntraTokenGuardPolicy.java" />
 </suppressions>
