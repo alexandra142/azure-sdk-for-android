@@ -244,7 +244,38 @@ public class CommunicationIdentifierTests {
         String userId = "45ab2481-1c1c-4005-be24-0ffb879b1130";
         String tenantId= "7f43a902-8c6f-4b77-91e1-67d3f3f4bb1d";
         String resourceId= "3e74a9c2-5d0b-4f88-936c-7ea2b21d4b37";
+
+        TeamsExtensionUserIdentifier identifier = new TeamsExtensionUserIdentifier(userId, tenantId, resourceId);
+
+        assertEquals(identifier.getResourceId(), resourceId);
+        assertEquals(identifier.getTenantId(), tenantId);
+        assertEquals(identifier.getUserId(), userId);
+        assertEquals(identifier.getCloudEnvironment(), CommunicationCloudEnvironment.PUBLIC);
+    }
+
+    @Test
+    public void teamsExtensionUserIdentifier_getParametersCheck_DOD()
+    {
+        String userId = "45ab2481-1c1c-4005-be24-0ffb879b1130";
+        String tenantId= "7f43a902-8c6f-4b77-91e1-67d3f3f4bb1d";
+        String resourceId= "3e74a9c2-5d0b-4f88-936c-7ea2b21d4b37";
         CommunicationCloudEnvironment cloudEnvironment = CommunicationCloudEnvironment.DOD;
+
+        TeamsExtensionUserIdentifier identifier = new TeamsExtensionUserIdentifier(userId, tenantId, resourceId).setCloudEnvironment(cloudEnvironment);
+
+        assertEquals(identifier.getResourceId(), resourceId);
+        assertEquals(identifier.getTenantId(), tenantId);
+        assertEquals(identifier.getUserId(), userId);
+        assertEquals(identifier.getCloudEnvironment(), cloudEnvironment);
+    }
+
+    @Test
+    public void teamsExtensionUserIdentifier_getParametersCheck_GCCH()
+    {
+        String userId = "45ab2481-1c1c-4005-be24-0ffb879b1130";
+        String tenantId= "7f43a902-8c6f-4b77-91e1-67d3f3f4bb1d";
+        String resourceId= "3e74a9c2-5d0b-4f88-936c-7ea2b21d4b37";
+        CommunicationCloudEnvironment cloudEnvironment = CommunicationCloudEnvironment.GCCH;
 
         TeamsExtensionUserIdentifier identifier = new TeamsExtensionUserIdentifier(userId, tenantId, resourceId).setCloudEnvironment(cloudEnvironment);
 
