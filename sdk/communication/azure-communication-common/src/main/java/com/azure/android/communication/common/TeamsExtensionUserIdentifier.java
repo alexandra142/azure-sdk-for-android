@@ -15,7 +15,7 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
 
     private final String resourceId;
 
-    private CommunicationCloudEnvironment cloudEnvironment = CommunicationCloudEnvironment.PUBLIC;
+    private CommunicationCloudEnvironment cloudEnvironment;
 
     /**
      * Creates a TeamsExtensionUserIdentifier object with PUBLIC cloud environment.
@@ -29,6 +29,7 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
         this.userId = validateNotNullOrEmpty(userId, "userId");
         this.tenantId = validateNotNullOrEmpty(tenantId, "tenantId");
         this.resourceId = validateNotNullOrEmpty(resourceId, "resourceId");
+        this.cloudEnvironment = CommunicationCloudEnvironment.PUBLIC;
 
         generateRawId();
     }
@@ -55,6 +56,7 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
         return this;
     }
 
+    //todo can it be moved?
     /**
      * Determine the cloud based on identifier prefix.
      * @param cloudPrefix .
@@ -136,7 +138,6 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
         return super.hashCode();
     }
 
-    //todo what about parallel threads??
     private void generateRawId() {
         String identifierBase = this.resourceId + "_" + this.tenantId + "_" + this.userId;
         if (cloudEnvironment.equals(CommunicationCloudEnvironment.DOD)) {
