@@ -15,7 +15,7 @@ class StringUtils {
      */
     public static String validateNotNullOrEmpty(String value, String paramName) {
         if (value == null || value.trim().isEmpty()) {
-            String message = "The initialization parameter [" + paramName + "] cannot be null or empty.";
+            String message = "The parameter [" + paramName + "] cannot be null or empty.";
             throw new IllegalArgumentException(message);
         }
         return value;

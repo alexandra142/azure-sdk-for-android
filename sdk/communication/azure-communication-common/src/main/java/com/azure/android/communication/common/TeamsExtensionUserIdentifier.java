@@ -15,7 +15,7 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
 
     private final String resourceId;
 
-    private CommunicationCloudEnvironment cloudEnvironment = CommunicationCloudEnvironment.PUBLIC;
+    private CommunicationCloudEnvironment cloudEnvironment;
 
     /**
      * Creates a TeamsExtensionUserIdentifier object with PUBLIC cloud environment.
@@ -47,26 +47,6 @@ public final class TeamsExtensionUserIdentifier extends CommunicationIdentifier 
     public TeamsExtensionUserIdentifier setRawId(String rawId) {
         super.setRawId(rawId);
         return this;
-    }
-
-    //todo can it be moved?
-    /**
-     * Determine the cloud based on identifier prefix.
-     * @param cloudPrefix .
-     * @return CommunicationCloudEnvironment.
-     * @throws IllegalArgumentException thrown if CommunicationCloudEnvironment cannot be initialized.
-     */
-    static CommunicationCloudEnvironment determineCloudEnvironment(String cloudPrefix) {
-        switch (cloudPrefix) {
-            case ACS_USER_DOD_CLOUD_PREFIX:
-                return CommunicationCloudEnvironment.DOD;
-            case ACS_USER_GCCH_CLOUD_PREFIX:
-                return CommunicationCloudEnvironment.GCCH;
-            case ACS_USER_PREFIX:
-                return CommunicationCloudEnvironment.PUBLIC;
-            default:
-                throw  new IllegalArgumentException("Cannot initialize CommunicationCloudEnvironment.");
-        }
     }
 
     /**
