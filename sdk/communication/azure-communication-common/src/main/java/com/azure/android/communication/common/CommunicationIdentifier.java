@@ -120,8 +120,27 @@ public abstract class CommunicationIdentifier {
         String resourceId = segments[0];
         String tenantId = segments[1];
         String userId = segments[2];
-        CommunicationCloudEnvironment cloud = TeamsExtensionUserIdentifier.determineCloudEnvironment(prefix);
+        CommunicationCloudEnvironment cloud = determineCloudEnvironment(prefix);
 
         return new TeamsExtensionUserIdentifier(userId, tenantId, resourceId).setCloudEnvironment(cloud);
+    }
+
+    /**
+     * Determine the cloud based on identifier prefix.
+     * @param cloudPrefix .
+     * @return CommunicationCloudEnvironment.
+     * @throws IllegalArgumentException thrown if CommunicationCloudEnvironment cannot be initialized.
+     */
+    static CommunicationCloudEnvironment determineCloudEnvironment(String cloudPrefix) {
+        switch (cloudPrefix) {
+            case ACS_USER_DOD_CLOUD_PREFIX:
+                return CommunicationCloudEnvironment.DOD;
+            case ACS_USER_GCCH_CLOUD_PREFIX:
+                return CommunicationCloudEnvironment.GCCH;
+            case ACS_USER_PREFIX:
+                return CommunicationCloudEnvironment.PUBLIC;
+            default:
+                throw  new IllegalArgumentException("Cannot initialize CommunicationCloudEnvironment.");
+        }
     }
 }

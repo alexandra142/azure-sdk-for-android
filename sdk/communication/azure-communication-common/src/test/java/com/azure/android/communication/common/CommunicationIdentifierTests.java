@@ -353,7 +353,7 @@ public class CommunicationIdentifierTests {
         assertIdentifier("28:gcch:45ab2481-1c1c-4005-be24-0ffb879b1130", new MicrosoftTeamsAppIdentifier(microsoftTeamsAppId, CommunicationCloudEnvironment.GCCH));
 
         final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> CommunicationIdentifier.fromRawId(null));
-        assertEquals("The parameter [rawId] cannot be null to empty.", illegalArgumentException.getMessage());
+        assertEquals("The parameter [rawId] cannot be null or empty.", illegalArgumentException.getMessage());
     }
 
     @Test
